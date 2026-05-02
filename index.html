@@ -1,18 +1,199 @@
-<p><strong>📥 Download Outline (If not installed)</strong></p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>一键导入订阅配置</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Import</title>
+<style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; }
+        .success-msg { color: green; font-weight: bold; }
+        .fallback { border: 1px solid #ccc; padding: 15px; margin-top: 20px; display: none; }
+        .sub-link { width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #007bff; background-color: #f8f9fa; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .message-error {
+            color: #d9534f;
+            font-size: 1.2em;
+            margin-top: 30px;
+        }
+        .message-success {
+            color: #5cb85c;
+            font-size: 1.2em;
+            margin-top: 30px;
+        }
+        .instruction {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #555;
+        }
+        .copy-box {
+            background: #f7f7f7;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 20px 0;
+            word-break: break-all;
+            cursor: pointer;
+        }
+        .copy-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 1em;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+        .download-link {
+            display: block;
+            margin-top: 25px;
+            font-size: 1em;
+            color: #007bff;
+            text-decoration: none;
+        }
+</style>
+</head>
+<body>
 
-<a href="https://apps.apple.com/app/outline-app/id1356177741" target="_blank" class="button">
-            🍎 Apple (iPhone / iPad)
-            🍎 Apple (iPhone / iPad / Mac)
-</a>
+    <h2>正在尝试自动导入配置...</h2>
+    <p class="success-msg">如果您的 Hiddify App 已安装，应该会立即跳转。</p>
+    <img id="loading-gif" src="https://via.placeholder.com/50/007bff/ffffff?text=Loading" alt="加载中">
 
-<br>
-@@ -63,8 +63,8 @@ <h2>🚀 Connect to Outline</h2>
+    <div id="fallback-instructions" class="fallback">
+        <h3>❗ 自动导入失败，请手动操作：</h3>
+        <p>原因可能是您未安装 Hiddify App 或浏览器拦截了跳转。</p>
+        <p>请点击复制按钮，将订阅地址粘贴到您的 Hiddify 客户端中。</p>
+    <div class="container">
+        <h1>Attempting to Import Configuration Automatically...</h1>
 
-<br>
+        <input type="text" id="subscription-url" class="sub-link" readonly>
+        <button onclick="copyToClipboard()" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">
+            复制订阅地址
+        </button>
+        <p id="copy-status" style="color: red; margin-top: 5px;"></p>
+        <p><a href="[您的 Hiddify App 下载链接]" target="_blank">前往下载 Hiddify App</a></p>
+    </div>
+        <p class="instruction">If the Hiddify App is installed, the import should begin immediately.</p>
+        
+        <div id="manual-section" style="display: none;">
+            <p class="message-error">
+                <strong>Automatic Import Failed. Please perform manual steps:</strong>
+            </p>
+            <p class="instruction">
+                The reason may be that the Hiddify App is not installed, or your browser is blocking the redirect.
+            </p>
+            
+            <p class="instruction" style="margin-top: 20px;">
+                Please click the **Copy** button to copy the subscription link and paste it into your Hiddify client.
+            </p>
 
-        <a href="https://getoutline.org/en/home" target="_blank" class="button">
-            💻 Windows / Mac
-        <a href="https://s3.amazonaws.com/outline-releases/client/windows/stable/Outline-Client.exe" target="_blank" class="button">
-            💻 Windows
-</a>
-</div>
+            <div class="copy-box" id="subscriptionLinkDisplay">
+                </div>
+
+    <script>
+        // 1. 获取 URL 中的订阅参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const subscriptionUrl = urlParams.get('sub'); // 获取您在 FB 中发送的 'sub=' 后面的链接
+            <button class="copy-button" onclick="copyToClipboard()">
+                Copy Subscription Link
+            </button>
+            
+            <a class="download-link" href="https://hiddify.com/download" target="_blank">
+                Go to Hiddify App Download Page
+            </a>
+        </div>
+
+        if (subscriptionUrl) {
+            // 2. 构造深度链接
+            const deepLink = 'hiddify://install?url=' + encodeURIComponent(subscriptionUrl);
+        <script>
+            // -----------------------------------------------------------
+            // 核心功能：解析链接、尝试跳转、处理失败
+            // -----------------------------------------------------------
+
+            // 3. 尝试进行深度链接跳转
+            window.location.href = deepLink;
+            const urlParams = new URLSearchParams(window.location.search);
+            const subLink = urlParams.get('sub');
+            
+            // 检查是否有订阅链接参数
+            if (subLink) {
+                // 1. 尝试触发一键导入 (Deep Link)
+                const deepLink = "hiddify://install?url=" + encodeURIComponent(subLink);
+                window.location.href = deepLink;
+
+            // 4. 设置一个超时，用于处理跳转失败的情况
+            setTimeout(() => {
+                // 如果 2500 毫秒（2.5 秒）后页面还没有跳转走，则认为跳转失败
+                document.getElementById('loading-gif').style.display = 'none';
+                document.getElementById('subscription-url').value = subscriptionUrl;
+                document.getElementById('fallback-instructions').style.display = 'block';
+            }, 2500);
+                // 2. 如果 Deep Link 失败 (例如 App 未安装或被浏览器阻止)，则显示手动区域
+                // 设置一个计时器，如果 Deep Link 没有成功打开 App，就显示手动导入部分
+                setTimeout(() => {
+                    document.getElementById('manual-section').style.display = 'block';
+                    document.getElementById('subscriptionLinkDisplay').textContent = subLink;
+                }, 1500); // 1.5秒后显示手动导入界面
+
+        } else {
+            document.getElementById('loading-gif').style.display = 'none';
+            document.querySelector('h2').textContent = '链接错误，请联系客服获取正确的订阅链接。';
+        }
+            } else {
+                // 如果没有 sub= 参数，显示错误信息
+                document.getElementById('manual-section').style.display = 'block';
+                document.getElementById('subscriptionLinkDisplay').textContent = 'No subscription link provided. Please contact customer support for a valid link.';
+                document.getElementById('subscriptionLinkDisplay').style.color = '#d9534f'; 
+            }
+
+        // 复制功能
+        function copyToClipboard() {
+            const copyText = document.getElementById("subscription-url");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // 针对移动设备
+            try {
+                document.execCommand("copy");
+                document.getElementById('copy-status').textContent = "✅ 复制成功！";
+            } catch (err) {
+                document.getElementById('copy-status').textContent = "⚠️ 复制失败，请手动长按复制。";
+            // -----------------------------------------------------------
+            // 复制到剪贴板功能
+            // -----------------------------------------------------------
+            function copyToClipboard() {
+                const linkToCopy = document.getElementById('subscriptionLinkDisplay').textContent;
+                
+                navigator.clipboard.writeText(linkToCopy).then(() => {
+                    alert('Subscription link copied successfully! You can now paste it into your Hiddify App.');
+                }).catch(err => {
+                    // Fallback for older browsers
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = linkToCopy;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    alert('Subscription link copied successfully! (Fallback method)');
+                });
+}
+        }
+    </script>
+        </script>
+    </div>
+</body>
+</html>
+</html>
